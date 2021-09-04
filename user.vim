@@ -1,3 +1,7 @@
+" The MIT License (MIT)
+"
+" Copyright (c) 2016 Romain Lafourcade
+"
 " Apprentice.vim -- Vim color scheme.
 " Author:      Romain Lafourcade (romainlafourcade@gmail.com)
 " Webpage:     https://github.com/romainl/Apprentice
