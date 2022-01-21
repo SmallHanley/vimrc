@@ -2,6 +2,8 @@ if filereadable("/etc/vim/vimrc")
 	source /etc/vim/vimrc
 endif
 
+au BufNewFile * :% w
+
 " Integrate clang-format to vim
 function! Formatonsave()
 	let l:formatdiff = 1
@@ -42,10 +44,10 @@ filetype indent on
 syntax on
 
 " User mapping
-inoremap ( ()<Esc>i
-inoremap " ""<Esc>i
-inoremap ' ''<Esc>i
-inoremap [ []<Esc>i
+""inoremap ( ()<Esc>i
+""inoremap " ""<Esc>i
+""inoremap ' ''<Esc>i
+""inoremap [ []<Esc>i
 inoremap {<CR> {<CR>}<Esc>ko
 noremap p "+p
 noremap P "+P
