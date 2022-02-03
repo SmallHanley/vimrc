@@ -15,12 +15,14 @@ au BufWritePre *.h,*.hpp,*.c,*.cc,*.cpp call Formatonsave()
 au BufWritePre * :%s/\s\+$//e
 au BufWritePre * :%s/\n*\%$//e
 
+" Color Scheme
 try
     color user
 catch
     color default
 endtry
 
+" Basic Setting
 set vb t_vb=
 set clipboard=unnamed
 set nocompatible
@@ -43,11 +45,11 @@ set ai
 filetype indent on
 syntax on
 
-" User mapping
-""inoremap ( ()<Esc>i
-""inoremap " ""<Esc>i
-""inoremap ' ''<Esc>i
-""inoremap [ []<Esc>i
+" User Mapping
+"inoremap ( ()<Esc>i
+"inoremap " ""<Esc>i
+"inoremap ' ''<Esc>i
+"inoremap [ []<Esc>i
 inoremap {<CR> {<CR>}<Esc>ko
 noremap p "+p
 noremap P "+P
@@ -60,6 +62,11 @@ au FileType c,cpp inoremap f<CR> for (int i = 0; i < ; i++) {<CR>}<Esc>kA<Esc>F;
 au FileType c,cpp inoremap w<CR> while () {<CR>}<Esc>kA<Esc>hhi
 au FileType c,cpp inoremap i<CR> if () {<CR>}<Esc>kA<Esc>hhi
 au FileType c,cpp inoremap <F1> () {<CR>}<Esc>kA<Esc>hhi
+
+map <C-h> <C-w>h
+map <C-j> <C-w>j
+map <C-k> <C-w>k
+map <C-l> <C-w>l
 
 if expand('%:t') == "Makefile"
 	set noexpandtab
@@ -78,7 +85,3 @@ inoremap <Up> <Nop>
 inoremap <Down> <Nop>
 inoremap <Left> <Nop>
 inoremap <Right> <Nop>
-
-call plug#begin()
-Plug 'preservim/nerdtree'
-call plug#end()
