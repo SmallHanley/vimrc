@@ -41,9 +41,18 @@ set ignorecase
 set hlsearch
 hi Search cterm=underline ctermfg=none ctermbg=Red
 
+set expandtab
+set shiftwidth=4
+set tabstop=4
+
 set ai
 filetype indent on
 syntax on
+
+set path+=**
+set wildmenu
+
+filetype plugin on
 
 " User Mapping
 "inoremap ( ()<Esc>i
@@ -63,18 +72,12 @@ au FileType c,cpp inoremap w<CR> while () {<CR>}<Esc>kA<Esc>hhi
 au FileType c,cpp inoremap i<CR> if () {<CR>}<Esc>kA<Esc>hhi
 au FileType c,cpp inoremap <F1> () {<CR>}<Esc>kA<Esc>hhi
 
-map <C-h> <C-w>h
-map <C-j> <C-w>j
-map <C-k> <C-w>k
-map <C-l> <C-w>l
+noremap <C-h> <C-w>h
+noremap <C-j> <C-w>j
+noremap <C-k> <C-w>k
+noremap <C-l> <C-w>l
 
-if expand('%:t') == "Makefile"
-	set noexpandtab
-else
-	set expandtab
-   	set shiftwidth=4
-    set tabstop=4
-endif
+autocmd FileType make setlocal noexpandtab
 
 " Practice key
 noremap <Up> <Nop>
@@ -85,3 +88,56 @@ inoremap <Up> <Nop>
 inoremap <Down> <Nop>
 inoremap <Left> <Nop>
 inoremap <Right> <Nop>
+
+" Tag Jumping
+command! MakeTags !ctags -R .
+
+" Netrw
+let g:netrw_banner=0        " disable annoying banner
+let g:netrw_browse_split=4  " open in prior window
+let g:netrw_altv=1          " open splits to the right
+let g:netrw_liststyle=3     " tree view
+let g:netrw_list_hide=netrw_gitignore#Hide()
+let g:netrw_list_hide.=',\(^\|\s\s\)\zs\.\S\+'
+let g:netrw_winsize = 25
+
+noremap <unique> <c-r> <Plug>NetrwRefresh
+noremap <silent> <F2> :call ToggleNetrw()<CR>
+
+function! OpenToRight()
+    :normal v
+    let g:path=expand('%:p')
+    :q!
+    execute 'belowright vnew' g:path
+    :normal <C-l>
+endfunction
+
+let g:NetrwIsOpen=0
+
+function! ToggleNetrw()
+    if g:NetrwIsOpen
+        let i = bufnr("$")
+        while (i >= 1)
+            if (getbufvar(i, "&filetype") == "netrw")
+                silent exe "bwipeout " . i
+            endif
+            let i-=1
+        endwhile
+        let g:NetrwIsOpen=0
+    else
+        let g:NetrwIsOpen=1
+        silent Lexplore
+    endif
+endfunction
+
+function! NetrwMappings()
+    noremap <buffer> <C-l> <C-w>l
+    noremap <buffer> V :call OpenToRight()<CR>
+endfunction
+
+augroup netrw_mappings
+    autocmd!
+    autocmd filetype netrw call NetrwMappings()
+augroup END
+
+autocmd WinEnter * if winnr('$') == 1 && getbufvar(winbufnr(winnr()), "&filetype") == "netrw" || &buftype == 'quickfix' |q|endif
