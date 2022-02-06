@@ -1,13 +1,13 @@
 if filereadable("/etc/vim/vimrc")
-	source /etc/vim/vimrc
+    source /etc/vim/vimrc
 endif
 
 au BufNewFile * :% w
 
 " Integrate clang-format to vim
 function! Formatonsave()
-	let l:formatdiff = 1
-	py3f /usr/share/vim/addons/syntax/clang-format.py
+    let l:formatdiff = 1
+    py3f /usr/share/vim/addons/syntax/clang-format.py
 endfunction
 au BufWritePre *.h,*.hpp,*.c,*.cc,*.cpp call Formatonsave()
 
@@ -29,7 +29,6 @@ set nocompatible
 
 set cursorline
 set nonu
-hi CursorLineNr cterm=bold ctermfg=Red ctermbg=None
 
 set noswapfile
 set splitright
@@ -39,7 +38,6 @@ set scrolloff=4
 set incsearch
 set ignorecase
 set hlsearch
-hi Search cterm=underline ctermfg=none ctermbg=Red
 
 set expandtab
 set shiftwidth=4
@@ -77,7 +75,7 @@ noremap <C-j> <C-w>j
 noremap <C-k> <C-w>k
 noremap <C-l> <C-w>l
 
-autocmd FileType make setlocal noexpandtab
+au FileType make setlocal noexpandtab
 
 " Practice key
 noremap <Up> <Nop>
@@ -136,8 +134,8 @@ function! NetrwMappings()
 endfunction
 
 augroup netrw_mappings
-    autocmd!
-    autocmd filetype netrw call NetrwMappings()
+    au!
+    au filetype netrw call NetrwMappings()
 augroup END
 
-autocmd WinEnter * if winnr('$') == 1 && getbufvar(winbufnr(winnr()), "&filetype") == "netrw" || &buftype == 'quickfix' |q|endif
+au WinEnter * if winnr('$') == 1 && getbufvar(winbufnr(winnr()), "&filetype") == "netrw" || &buftype == 'quickfix' |q|endif
