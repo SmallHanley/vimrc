@@ -6,7 +6,7 @@ Vim management in a single .vimrc file.
 
 ## Prerequisites
 
-* The Vim version must be at least ==`v8.1.2291`== (or you may encounter netrw gitingnore over-match problems).
+* The Vim version must be at least `v8.1.2291` (or you may encounter netrw gitingnore over-match problems).
 * Checking for `X11-clipboard` support in terminal.
 ```
 vim --version | grep clipboard
